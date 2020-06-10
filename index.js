@@ -8,17 +8,19 @@ function handleClick() {
   buttons.forEach((button) => {
     button.addEventListener("click", (event) => {
       makeSound(event.target.textContent);
+      buttonAnimation(event.target.textContent);
     });
   });
 }
 function handleKeyPress() {
   document.addEventListener("keydown", (event) => {
     makeSound(event.key);
+    buttonAnimation(event.key);
   });
 }
 
-function makeSound(event) {
-  switch (event) {
+function makeSound(key) {
+  switch (key) {
     case "w":
       play("./sounds/tom-1.mp3");
       break;
@@ -48,4 +50,12 @@ function makeSound(event) {
 function play(location) {
   let sound = new Audio(location);
   sound.play();
+}
+
+function buttonAnimation(currentKey) {
+  let currentButton = document.querySelector("." + currentKey);
+  currentButton.classList.add("pressed");
+  setTimeout(() => {
+    currentButton.classList.remove("pressed");
+  }, 200);
 }
